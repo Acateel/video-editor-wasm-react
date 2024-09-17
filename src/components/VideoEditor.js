@@ -5,11 +5,13 @@ import { VideoPlayer } from './VideoPlayer'
 import { sliderValueToVideoTime } from '../utils/utils'
 import VideoUpload from './VideoUpload'
 import VideoConversionButton from './VideoConversionButton'
+import VideoFilters from './VideoFilters'
 const ffmpeg = createFFmpeg({ log: true })
 
 function VideoEditor() {
   const [ffmpegLoaded, setFFmpegLoaded] = useState(false)
   const [videoFile, setVideoFile] = useState()
+  const [initVideoFile, setInitVideoFile] = useState()
   const [videoPlayerState, setVideoPlayerState] = useState()
   const [videoPlayer, setVideoPlayer] = useState()
   const [gifUrl, setGifUrl] = useState()
@@ -88,9 +90,27 @@ function VideoEditor() {
             disabled={!!videoFile}
             onChange={(videoFile) => {
               setVideoFile(videoFile)
+              setInitVideoFile(videoFile)
             }}
             onRemove={() => {
               setVideoFile(undefined)
+              setInitVideoFile(undefined)
+            }}
+          />
+        </div>
+        <div className={'filter-div'}>
+          <VideoFilters
+            ffmpeg={ffmpeg}
+            videoFile={videoFile}
+            initVideoFile={initVideoFile}
+            onFilteredStart={() => {
+              setProcessing(true)
+            }}
+            onFilteredEnd={() => {
+              setProcessing(false)
+            }}
+            onChangeVideo={ (videoFile) => {
+              setVideoFile(videoFile)
             }}
           />
         </div>

@@ -21,7 +21,7 @@ export function VideoPlayer({
     if (playerState) {
       onChange(playerState)
     }
-  }, [playerState])
+  }, [onChange, playerState])
 
   useEffect(() => {
     onPlayerChange(player)
@@ -29,7 +29,7 @@ export function VideoPlayer({
     if (player) {
       player.subscribeToStateChange(setPlayerState)
     }
-  }, [player])
+  }, [onPlayerChange, player])
 
   return (
     <div className={'video-player'}>
