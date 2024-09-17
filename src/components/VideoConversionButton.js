@@ -1,5 +1,5 @@
-import Button from './ui/Button'
 import { fetchFile } from '@ffmpeg/ffmpeg'
+import Button from './ui/Button'
 import { sliderValueToVideoTime } from '../utils/utils'
 
 function VideoConversionButton({

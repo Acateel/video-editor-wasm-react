@@ -1,13 +1,13 @@
 import { createFFmpeg } from '@ffmpeg/ffmpeg'
 import { useEffect, useState } from 'react'
-import { Slider, Spin } from 'antd'
+import { Spin } from 'antd'
 import { VideoPlayer } from './VideoPlayer'
 import { sliderValueToVideoTime } from '../utils/utils'
 import VideoUpload from './VideoUpload'
 import VideoConversionButton from './VideoConversionButton'
 import VideoFilters from './VideoFilters'
 import RangeSlider from './ui/RangeSlider'
-const ffmpeg = createFFmpeg({ log: true })
+const ffmpeg = createFFmpeg({ log: false })
 
 function VideoEditor() {
   const [ffmpegLoaded, setFFmpegLoaded] = useState(false)

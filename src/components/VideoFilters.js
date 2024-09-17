@@ -25,7 +25,17 @@ function VideoFilters({
     ).setting
 
     if (filteredComand) {
-      await ffmpeg.run('-i', 'input.mp4', '-vf', filteredComand, 'output.mp4')
+      await ffmpeg.run(
+        '-i',
+        'input.mp4',
+        '-vf',
+        filteredComand,
+        '-b:v',
+        '500k',
+        '-c:a',
+        'libx264',
+        'output.mp4'
+      )
     } else {
       await ffmpeg.run('-i', 'input.mp4', 'output.mp4')
     }
