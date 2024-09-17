@@ -1,7 +1,5 @@
-// src/components/VideoConversionButton.js
-
-import { Button } from 'antd'
 import { fetchFile } from '@ffmpeg/ffmpeg'
+import Button from './ui/Button'
 import { sliderValueToVideoTime } from '../utils/utils'
 
 function VideoConversionButton({

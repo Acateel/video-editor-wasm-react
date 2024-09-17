@@ -1,15 +1,18 @@
 import { createFFmpeg } from '@ffmpeg/ffmpeg'
 import { useEffect, useState } from 'react'
-import { Slider, Spin } from 'antd'
+import { Spin } from 'antd'
 import { VideoPlayer } from './VideoPlayer'
 import { sliderValueToVideoTime } from '../utils/utils'
 import VideoUpload from './VideoUpload'
 import VideoConversionButton from './VideoConversionButton'
-const ffmpeg = createFFmpeg({ log: true })
+import VideoFilters from './VideoFilters'
+import RangeSlider from './ui/RangeSlider'
+const ffmpeg = createFFmpeg({ log: false })
 
 function VideoEditor() {
   const [ffmpegLoaded, setFFmpegLoaded] = useState(false)
   const [videoFile, setVideoFile] = useState()
+  const [initVideoFile, setInitVideoFile] = useState()
   const [videoPlayerState, setVideoPlayerState] = useState()
   const [videoPlayer, setVideoPlayer] = useState()
   const [gifUrl, setGifUrl] = useState()
@@ -30,6 +33,7 @@ function VideoEditor() {
     if (min !== undefined && videoPlayerState && videoPlayer) {
       videoPlayer.seek(sliderValueToVideoTime(videoPlayerState.duration, min))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sliderValues])
 
   useEffect(() => {
@@ -49,6 +53,7 @@ function VideoEditor() {
         videoPlayer.seek(minTime)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoPlayerState])
 
   useEffect(() => {
@@ -88,23 +93,37 @@ function VideoEditor() {
             disabled={!!videoFile}
             onChange={(videoFile) => {
               setVideoFile(videoFile)
+              setInitVideoFile(videoFile)
             }}
             onRemove={() => {
               setVideoFile(undefined)
+              setInitVideoFile(undefined)
+            }}
+          />
+        </div>
+        <div className={'filter-div filter-selector-container'}>
+          <VideoFilters
+            ffmpeg={ffmpeg}
+            videoFile={videoFile}
+            initVideoFile={initVideoFile}
+            onFilteredStart={() => {
+              setProcessing(true)
+            }}
+            onFilteredEnd={() => {
+              setProcessing(false)
+            }}
+            onChangeVideo={(videoFile) => {
+              setVideoFile(videoFile)
             }}
           />
         </div>
         <div className={'slider-div'}>
           <h3>Cut Video</h3>
-          <Slider
+          <RangeSlider
             disabled={!videoPlayerState}
             value={sliderValues}
-            range={true}
             onChange={(values) => {
               setSliderValues(values)
-            }}
-            tooltip={{
-              formatter: null,
             }}
           />
         </div>

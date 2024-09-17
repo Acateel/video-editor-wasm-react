@@ -1,4 +1,5 @@
-import { Button, Upload } from 'antd'
+import { Upload } from 'antd'
+import Button from './ui/Button'
 
 function VideoUpload({ disabled, onChange = () => {}, onRemove = () => {} }) {
   return (
