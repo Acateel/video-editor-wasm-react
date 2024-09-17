@@ -32,6 +32,7 @@ function VideoEditor() {
     if (min !== undefined && videoPlayerState && videoPlayer) {
       videoPlayer.seek(sliderValueToVideoTime(videoPlayerState.duration, min))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sliderValues])
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function VideoEditor() {
         videoPlayer.seek(minTime)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoPlayerState])
 
   useEffect(() => {
@@ -98,7 +100,7 @@ function VideoEditor() {
             }}
           />
         </div>
-        <div className={'filter-div'}>
+        <div className={'filter-div filter-selector-container'}>
           <VideoFilters
             ffmpeg={ffmpeg}
             videoFile={videoFile}
@@ -109,7 +111,7 @@ function VideoEditor() {
             onFilteredEnd={() => {
               setProcessing(false)
             }}
-            onChangeVideo={ (videoFile) => {
+            onChangeVideo={(videoFile) => {
               setVideoFile(videoFile)
             }}
           />

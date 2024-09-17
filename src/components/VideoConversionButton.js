@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import Button from './ui/Button'
 import { fetchFile } from '@ffmpeg/ffmpeg'
 import { sliderValueToVideoTime } from '../utils/utils'
 

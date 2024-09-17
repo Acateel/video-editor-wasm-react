@@ -1,8 +1,8 @@
-import { Button } from 'antd'
+import Button from './ui/Button'
 import { fetchFile } from '@ffmpeg/ffmpeg'
 import { useState } from 'react'
-import FilterSelector from './ui/FilterSelector'
 import { filters } from '../common/constant'
+import './VideoFilters.css'
 
 function VideoFilters({
   ffmpeg,
@@ -54,19 +54,34 @@ function VideoFilters({
   }
 
   return (
-    <>
-      <FilterSelector
-        filters={filters}
-        selectedFilter={selectedFilter}
-        onChange={(filter) => setSelectedFilter(filter)}
-      />
-      <Button danger={true} disabled={!videoFile} onClick={() => applyFilter()}>
-        Add filter
-      </Button>
-      <Button disabled={!videoFile} onClick={() => resetFilter()}>
-        Reset filter
-      </Button>
-    </>
+    <div className="filter-selector-container">
+      <label htmlFor="filterSelector">Select filter: </label>
+      <div className="filter-selector-inner-container">
+        <select
+          className="filter-selector"
+          id="filterSelector"
+          value={selectedFilter}
+          onChange={(e) => setSelectedFilter(e.target.value)}
+        >
+          {Object.keys(filters).map((filter) => (
+            <option key={filter} value={filter.name}>
+              {filters[filter].name}
+            </option>
+          ))}
+        </select>
+
+        <Button disabled={!videoFile} onClick={() => applyFilter()}>
+          Add filter
+        </Button>
+        <Button
+          disabled={!videoFile}
+          danger={true}
+          onClick={() => resetFilter()}
+        >
+          Reset filter
+        </Button>
+      </div>
+    </div>
   )
 }
 

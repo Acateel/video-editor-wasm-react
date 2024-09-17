@@ -1,0 +1,59 @@
+.filter-selector-container {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-selector-container label {
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.filter-selector-inner-container {
+  display: flex;
+  align-items: center;
+}
+
+.filter-selector-inner-container button {
+  width: 200px;
+  padding: 10px;
+}
+
+.filter-selector {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+  appearance: none;
+  cursor: pointer;
+}
+
+.filter-selector:hover {
+  border-color: #007bff;
+}
+
+.filter-selector:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.filter-selector option {
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+}
+
+.filter-selector:disabled {
+  background-color: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+}
