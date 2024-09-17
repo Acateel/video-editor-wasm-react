@@ -1,5 +1,9 @@
 .App {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
   text-align: center;
+  padding: 3rem;
 }
 
 .App-logo {
@@ -9,7 +13,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-      animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 20s linear;
   }
 }
 
@@ -30,10 +34,10 @@
 
 @keyframes App-logo-spin {
   from {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   to {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }

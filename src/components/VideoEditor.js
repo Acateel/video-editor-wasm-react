@@ -6,6 +6,7 @@ import { sliderValueToVideoTime } from '../utils/utils'
 import VideoUpload from './VideoUpload'
 import VideoConversionButton from './VideoConversionButton'
 import VideoFilters from './VideoFilters'
+import RangeSlider from './ui/RangeSlider'
 const ffmpeg = createFFmpeg({ log: true })
 
 function VideoEditor() {
@@ -118,15 +119,11 @@ function VideoEditor() {
         </div>
         <div className={'slider-div'}>
           <h3>Cut Video</h3>
-          <Slider
+          <RangeSlider
             disabled={!videoPlayerState}
             value={sliderValues}
-            range={true}
             onChange={(values) => {
               setSliderValues(values)
-            }}
-            tooltip={{
-              formatter: null,
             }}
           />
         </div>
