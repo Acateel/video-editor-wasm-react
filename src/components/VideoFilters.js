@@ -1,5 +1,8 @@
 import { Button } from 'antd'
 import { fetchFile } from '@ffmpeg/ffmpeg'
+import { useState } from 'react'
+import FilterSelector from './ui/FilterSelector'
+import { filters } from '../common/constant'
 
 function VideoFilters({
   ffmpeg,
@@ -9,14 +12,23 @@ function VideoFilters({
   onFilteredEnd = () => {},
   onChangeVideo = () => {},
 }) {
+  const [selectedFilter, setSelectedFilter] = useState(filters[0].name)
+
   const applyFilter = async () => {
     onFilteredStart()
 
     await ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(videoFile))
     onChangeVideo(undefined)
 
-    // todo: add some new effects
-    await ffmpeg.run('-i', 'input.mp4', '-vf', 'hue=s=0', 'output.mp4')
+    let filteredComand = filters.find(
+      (filter) => filter.name === selectedFilter
+    ).setting
+
+    if (filteredComand) {
+      await ffmpeg.run('-i', 'input.mp4', '-vf', filteredComand, 'output.mp4')
+    } else {
+      await ffmpeg.run('-i', 'input.mp4', 'output.mp4')
+    }
 
     const data = await ffmpeg.FS('readFile', 'output.mp4')
     const blob = new Blob([data.buffer], { type: 'video/mp4' })
@@ -43,6 +55,11 @@ function VideoFilters({
 
   return (
     <>
+      <FilterSelector
+        filters={filters}
+        selectedFilter={selectedFilter}
+        onChange={(filter) => setSelectedFilter(filter)}
+      />
       <Button danger={true} disabled={!videoFile} onClick={() => applyFilter()}>
         Add filter
       </Button>
