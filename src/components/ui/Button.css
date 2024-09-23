@@ -3,7 +3,7 @@
     margin: 8px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: var(--main-orange-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -11,19 +11,21 @@
   }
   
   .button:disabled {
-    background-color: #cccccc;
+    background-color: var(--text-second-color);
     cursor: not-allowed;
   }
   
   .button-danger {
-    background-color: #dc3545;
+    background-color: #FF1942;
   }
   
   .button:hover:not(:disabled) {
-    background-color: #0056b3;
+    transition: all .25s ease-out;
+    box-shadow: rgba(150, 150, 150, 0.25) 0px 3px 10px;
+    filter: brightness(115%);
   }
   
   .button-danger:hover:not(:disabled) {
-    background-color: #c82333;
+    background-color: #E50029;
   }
   

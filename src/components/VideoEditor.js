@@ -7,6 +7,7 @@ import VideoUpload from './VideoUpload'
 import VideoConversionButton from './VideoConversionButton'
 import VideoFilters from './VideoFilters'
 import RangeSlider from './ui/RangeSlider'
+import './VideoEditor.css'
 const ffmpeg = createFFmpeg({ log: false })
 
 function VideoEditor() {
@@ -73,21 +74,6 @@ function VideoEditor() {
         spinning={processing || !ffmpegLoaded}
         tip={!ffmpegLoaded ? 'Waiting for FFmpeg to load...' : 'Processing...'}
       >
-        <div>
-          {videoFile ? (
-            <VideoPlayer
-              src={URL.createObjectURL(videoFile)}
-              onPlayerChange={(videoPlayer) => {
-                setVideoPlayer(videoPlayer)
-              }}
-              onChange={(videoPlayerState) => {
-                setVideoPlayerState(videoPlayerState)
-              }}
-            />
-          ) : (
-            <h1>Upload a video</h1>
-          )}
-        </div>
         <div className={'upload-div'}>
           <VideoUpload
             disabled={!!videoFile}
@@ -101,66 +87,83 @@ function VideoEditor() {
             }}
           />
         </div>
-        <div className={'filter-div filter-selector-container'}>
-          <VideoFilters
-            ffmpeg={ffmpeg}
-            videoFile={videoFile}
-            initVideoFile={initVideoFile}
-            onFilteredStart={() => {
-              setProcessing(true)
-            }}
-            onFilteredEnd={() => {
-              setProcessing(false)
-            }}
-            onChangeVideo={(videoFile) => {
-              setVideoFile(videoFile)
-            }}
-          />
-        </div>
-        <div className={'slider-div'}>
-          <h3>Cut Video</h3>
-          <RangeSlider
-            disabled={!videoPlayerState}
-            value={sliderValues}
-            onChange={(values) => {
-              setSliderValues(values)
-            }}
-          />
-        </div>
-        <div className={'conversion-div'}>
-          <VideoConversionButton
-            onConversionStart={() => {
-              setProcessing(true)
-            }}
-            onConversionEnd={() => {
-              setProcessing(false)
-            }}
-            ffmpeg={ffmpeg}
-            videoPlayerState={videoPlayerState}
-            sliderValues={sliderValues}
-            videoFile={videoFile}
-            onGifCreated={(girUrl) => {
-              setGifUrl(girUrl)
-            }}
-          />
-        </div>
-        {gifUrl && (
-          <div className={'gif-div'}>
-            <h3>Resulting GIF</h3>
-            <img
-              src={gifUrl}
-              className={'gif'}
-              alt={'GIF file generated in the client side'}
-            />
-            <a
-              href={gifUrl}
-              download={'test.gif'}
-              className={'ant-btn ant-btn-default'}
-            >
-              Download
-            </a>
+        <div className="container">
+          <div>
+            {videoFile ? (
+              <VideoPlayer
+                src={URL.createObjectURL(videoFile)}
+                onPlayerChange={(videoPlayer) => {
+                  setVideoPlayer(videoPlayer)
+                }}
+                onChange={(videoPlayerState) => {
+                  setVideoPlayerState(videoPlayerState)
+                }}
+              />
+            ) : (
+              <h1>Upload a video</h1>
+            )}
           </div>
-        )}
+          <div className={'filter-div filter-selector-container'}>
+            <VideoFilters
+              ffmpeg={ffmpeg}
+              videoFile={videoFile}
+              initVideoFile={initVideoFile}
+              onFilteredStart={() => {
+                setProcessing(true)
+              }}
+              onFilteredEnd={() => {
+                setProcessing(false)
+              }}
+              onChangeVideo={(videoFile) => {
+                setVideoFile(videoFile)
+              }}
+            />
+          </div>
+          <div className={'slider-div'}>
+            <h3>Cut Video</h3>
+            <RangeSlider
+              disabled={!videoPlayerState}
+              value={sliderValues}
+              onChange={(values) => {
+                setSliderValues(values)
+              }}
+            />
+          </div>
+          <div className={'conversion-div'}>
+            <VideoConversionButton
+              onConversionStart={() => {
+                setProcessing(true)
+              }}
+              onConversionEnd={() => {
+                setProcessing(false)
+              }}
+              ffmpeg={ffmpeg}
+              videoPlayerState={videoPlayerState}
+              sliderValues={sliderValues}
+              videoFile={videoFile}
+              onGifCreated={(girUrl) => {
+                setGifUrl(girUrl)
+              }}
+            />
+          </div>
+          {gifUrl && (
+            <div className={'gif-div'}>
+              <h3>Resulting GIF</h3>
+              <img
+                src={gifUrl}
+                className={'gif'}
+                alt={'GIF file generated in the client side'}
+              />
+              <a
+                href={gifUrl}
+                download={'test.gif'}
+                className={'ant-btn ant-btn-default'}
+              >
+                Download
+              </a>
+            </div>
+          )}
+        </div>
       </Spin>
     </div>
   )

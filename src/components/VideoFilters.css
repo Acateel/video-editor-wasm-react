@@ -32,6 +32,7 @@
   transition: border-color 0.3s ease;
   appearance: none;
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .filter-selector:hover {
@@ -53,4 +54,10 @@
   background-color: #f0f0f0;
   color: #999;
   cursor: not-allowed;
+}
+
+@media(width <= 650px) {
+  .filter-selector-inner-container button {
+    width: 100px;
+  }
 }

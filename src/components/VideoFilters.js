@@ -77,14 +77,14 @@ function VideoFilters({
         </select>
 
         <Button disabled={!videoFile} onClick={() => applyFilter()}>
-          Add filter
+          Add
         </Button>
         <Button
           disabled={!videoFile}
           danger={true}
           onClick={() => resetFilter()}
         >
-          Reset filter
+          Reset
         </Button>
       </div>
     </div>
