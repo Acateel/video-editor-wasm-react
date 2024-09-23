@@ -30,10 +30,6 @@ function VideoFilters({
         'input.mp4',
         '-vf',
         filteredComand,
-        '-b:v',
-        '500k',
-        '-c:a',
-        'libx264',
         'output.mp4'
       )
     } else {
